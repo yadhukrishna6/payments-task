@@ -1,1 +1,23 @@
-<p>payments-pagination works!</p>
+<div class="pagination">
+
+  <button
+    type="button"
+    [disabled]="currentPage === 1"
+    (click)="previous()"
+  >
+    Previous
+  </button>
+
+  <span>
+    Page {{ currentPage }} of {{ totalPages }}
+  </span>
+
+  <button
+    type="button"
+    [disabled]="currentPage === totalPages"
+    (click)="next()"
+  >
+    Next
+  </button>
+
+</div>

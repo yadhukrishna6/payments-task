@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Payment } from '../../payments.service.ts';
+import { Payment, PaymentMethod } from '../../payments.service.ts';
 
 @Component({
   selector: 'app-payments-table',
@@ -17,5 +17,15 @@ export class PaymentsTable {
  }
 
  
- 
+ getMethodLabel(method: PaymentMethod): string {
+
+  const labels: Record<PaymentMethod, string> = {
+    ach: 'ACH',
+    wire: 'Wire',
+    card: 'Card',
+    check: 'Check'
+  };
+
+  return labels[method];
+}
 }
