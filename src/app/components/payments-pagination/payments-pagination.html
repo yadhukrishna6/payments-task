@@ -1,23 +1,31 @@
-<div class="pagination">
-
+<nav class="pagination-container" aria-label="Payments pagination">
   <button
     type="button"
-    [disabled]="currentPage === 1"
+    class="pagination-btn"
+    [disabled]="currentPage <= 1"
     (click)="previous()"
+    aria-label="Previous page"
   >
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
     Previous
   </button>
 
-  <span>
-    Page {{ currentPage }} of {{ totalPages }}
+  <span class="pagination-info" aria-live="polite">
+    Page <span class="current-page-num">{{ currentPage }}</span> of <span class="total-pages-num">{{ totalPages }}</span>
   </span>
 
   <button
     type="button"
-    [disabled]="currentPage === totalPages"
+    class="pagination-btn"
+    [disabled]="currentPage >= totalPages"
     (click)="next()"
+    aria-label="Next page"
   >
     Next
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
   </button>
-
-</div>
+</nav>

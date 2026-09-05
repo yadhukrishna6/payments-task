@@ -1,31 +1,39 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Payment, PaymentMethod } from '../../payments.service.ts';
+import { CommonModule } from '@angular/common';
+import { Payment } from '../../payments.service';
+import { formatCurrency, formatDate, getMethodLabel } from '../../utils/formatters';
 
 @Component({
   selector: 'app-payments-table',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './payments-table.html',
   styleUrl: './payments-table.css',
 })
 export class PaymentsTable {
- @Input ({ required : true })payments :Payment[] =[];
- 
- @Output() paymentClick = new EventEmitter<Payment>();
+  @Input({ required: true }) payments: Payment[] = [];
+  @Output() paymentClick = new EventEmitter<Payment>();
 
- onRowClick(payment : Payment):void{
-  this.paymentClick.emit(payment);
- }
+  formatAmount(amount: number, currency: string): string {
+    return formatCurrency(amount, currency);
+  }
 
- 
- getMethodLabel(method: PaymentMethod): string {
+  formatDate(dateStr: string): string {
+    return formatDate(dateStr);
+  }
 
-  const labels: Record<PaymentMethod, string> = {
-    ach: 'ACH',
-    wire: 'Wire',
-    card: 'Card',
-    check: 'Check'
-  };
+  formatMethod(method: Payment['method']): string {
+    return getMethodLabel(method);
+  }
 
-  return labels[method];
-}
+  onRowClick(payment: Payment): void {
+    this.paymentClick.emit(payment);
+  }
+
+  onRowKeydown(event: KeyboardEvent, payment: Payment): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.paymentClick.emit(payment);
+    }
+  }
 }

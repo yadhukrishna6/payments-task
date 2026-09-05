@@ -1,31 +1,43 @@
-<div class=" table-container">
-
-    <table>
-        <thead>
-            <tr>
-                <th>Reference</th>
-                <th>Customer</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Method</th>
-                <th>Created</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @for (payment of payments; track payment.id){
-            <tr tabindex="0" (click)="onRowClick(payment)"></tr>
-            <td>{{ payment.reference}}</td>
-            <td>{{ payment.customerName }}</td>
-            <td>{{ payment.amount | currency:payment.currency}}</td>
-            <td>{{ payment.status }}</td>
-            <td>{{ payment.method }}</td>
-            <td>{{ payment.createdAt | date:'short' }}</td>
-            <td>
-                {{ getMethodLabel(payment.method) }}
-            </td>
-            }
-        </tbody>
-    </table>
-
+<div class="table-container">
+  <table class="payments-table" role="table" aria-label="Payments Table">
+    <thead>
+      <tr>
+        <th scope="col">Reference</th>
+        <th scope="col">Customer</th>
+        <th scope="col" class="text-right">Amount</th>
+        <th scope="col">Status</th>
+        <th scope="col">Method</th>
+        <th scope="col">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (payment of payments; track payment.id) {
+        <tr
+          tabindex="0"
+          role="button"
+          (click)="onRowClick(payment)"
+          (keydown)="onRowKeydown($event, payment)"
+          [attr.aria-label]="'View details for reference ' + payment.reference + ', customer ' + payment.customerName"
+        >
+          <td class="reference-cell">
+            <span class="reference-code">{{ payment.reference }}</span>
+          </td>
+          <td class="customer-cell font-medium">{{ payment.customerName }}</td>
+          <td class="amount-cell text-right font-semibold">
+            {{ formatAmount(payment.amount, payment.currency) }}
+          </td>
+          <td class="status-cell">
+            <span class="status-badge" [ngClass]="'status-' + payment.status">
+              <span class="status-dot"></span>
+              {{ payment.status }}
+            </span>
+          </td>
+          <td class="method-cell">
+            <span class="method-badge">{{ formatMethod(payment.method) }}</span>
+          </td>
+          <td class="date-cell">{{ formatDate(payment.createdAt) }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
 </div>

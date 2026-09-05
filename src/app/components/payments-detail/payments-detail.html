@@ -1,1 +1,114 @@
-<p>payments-detail works!</p>
+<div
+  class="drawer-backdrop"
+  (click)="onBackdropClick($event)"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="'Payment details for ' + payment.reference"
+>
+  <aside class="drawer-panel">
+    <header class="drawer-header">
+      <div>
+        <span class="drawer-pretitle">Payment Details</span>
+        <h2 class="drawer-title">{{ payment.reference }}</h2>
+      </div>
+      <button
+        type="button"
+        class="close-btn"
+        (click)="onClose()"
+        aria-label="Close details panel (or press Esc)"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <div class="drawer-body">
+      <!-- Status Banner / Highlight -->
+      <div class="detail-highlight">
+        <div class="highlight-main">
+          <span class="highlight-label">Amount</span>
+          <span class="highlight-value">{{ formatAmount(payment.amount, payment.currency) }}</span>
+        </div>
+        <span class="status-badge" [ngClass]="'status-' + payment.status">
+          <span class="status-dot"></span>
+          {{ payment.status }}
+        </span>
+      </div>
+
+      <!-- Financial Breakdown -->
+      <section class="detail-section">
+        <h3 class="section-title">Financial Summary</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="item-label">Gross Amount</span>
+            <span class="item-value font-semibold">{{ formatAmount(payment.amount, payment.currency) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="item-label">Processing Fee</span>
+            <span class="item-value fee-value">-{{ formatAmount(payment.fee, payment.currency) }}</span>
+          </div>
+          <div class="detail-item highlight-net">
+            <span class="item-label">Net Amount</span>
+            <span class="item-value font-bold net-amount-value">{{ formatAmount(netAmount, payment.currency) }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Details -->
+      <section class="detail-section">
+        <h3 class="section-title">Customer Information</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="item-label">Customer Name</span>
+            <span class="item-value">{{ payment.customerName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="item-label">Customer Email</span>
+            <span class="item-value">
+              <a [href]="'mailto:' + payment.customerEmail" class="email-link">
+                {{ payment.customerEmail }}
+              </a>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transaction Information -->
+      <section class="detail-section">
+        <h3 class="section-title">Transaction Info</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="item-label">Reference</span>
+            <span class="item-value reference-code">{{ payment.reference }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="item-label">Payment ID</span>
+            <span class="item-value text-muted font-mono">{{ payment.id }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="item-label">Payment Method</span>
+            <span class="item-value">
+              <span class="method-badge">{{ formatMethod(payment.method) }}</span>
+            </span>
+          </div>
+          <div class="detail-item">
+            <span class="item-label">Created Date</span>
+            <span class="item-value">{{ formatDate(payment.createdAt) }}</span>
+          </div>
+          <div class="detail-item full-width">
+            <span class="item-label">Description</span>
+            <span class="item-value">{{ payment.description }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="drawer-footer">
+      <button type="button" class="close-footer-btn" (click)="onClose()">
+        Close (Esc)
+      </button>
+    </footer>
+  </aside>
+</div>

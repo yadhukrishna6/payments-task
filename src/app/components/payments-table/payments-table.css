@@ -1,27 +1,73 @@
-.status {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.payments-table thead {
+  background-color: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.payments-table th {
+  padding: 0.875rem 1rem;
+  font-size: 0.75rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
-.status.completed {
-  color: #166534;
-  background: #dcfce7;
+.payments-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  white-space: nowrap;
 }
 
-.status.pending {
-  color: #92400e;
-  background: #fef3c7;
+.payments-table tbody tr {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
 }
 
-.status.failed {
-  color: #991b1b;
-  background: #fee2e2;
+.payments-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
-.status.refunded {
-  color: #1e40af;
-  background: #dbeafe;
+.payments-table tbody tr:hover {
+  background-color: var(--bg-hover);
+}
+
+.payments-table tbody tr:focus {
+  outline: none;
+  background-color: var(--primary-subtle);
+}
+
+.font-medium {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.font-semibold {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.date-cell {
+  color: var(--text-muted);
 }

@@ -1,11 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { PaymentsPage } from './components/payments-page/payments-page';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  standalone: true,
+  imports: [PaymentsPage],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('payments-task');
-}
+export class App {}
