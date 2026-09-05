@@ -1,0 +1,12 @@
+<div class="filters">
+
+  <input type="text" [formControl]="searchControl" placeholder="Search payments..."/>
+
+  <select (change)="statusChange.emit($any($event.target).value)">
+    <option value="all">All Statuses</option>
+    <option value="completed">Completed</option>
+    <option value="pending">Pending</option>
+    <option value="failed">Failed</option>
+    <option value="refunded">Refunded</option>
+  </select>
+</div>

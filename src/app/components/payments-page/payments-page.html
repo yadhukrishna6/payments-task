@@ -1,0 +1,41 @@
+<div class="payments -page">
+    <h1>Payments</h1>
+    <p>Manage and review payment transactions</p>
+
+    <app-payments-status-filter (searchChange)="onSearch($event)" (statusChange)="onStatusChange($event as any)">
+        @if(loading()){
+        <div class=" state loading">
+            <div class="spinner"></div>
+            <span>Loading payments ...</span>
+        </div>
+        }
+        @else if(error()){
+        <div class="state error">
+            <h3> Unable to load payments</h3>
+            <p>Please try again later.</p>
+            <button (click)="loadPayments()" class="try-again-btn">
+                Try Again
+            </button>
+        </div>
+
+        }@else if (filteredPayments().length ===0){
+        <div class="state empty">
+            <h3>No Result</h3>
+            <h3>No payments found</h3>
+            <p>Try adjusting your search or filters.</p>
+        </div>
+        }
+        @else {
+        <app-payments-table [currentPage]="currentPage()" [totalPages]="totalPages()">
+            (pageChange)="goToPage($event)"
+        </app-payments-table>
+
+
+        }@if(selectedPayment()){
+        <app-payment-details>
+            [payment]="selectedPayment()!"
+            (close)="closeDetails()">
+        </app-payment-details>
+        }
+    </app-payments-status-filter>
+</div>
